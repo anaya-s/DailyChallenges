@@ -1,0 +1,57 @@
+//attempt at editing osc on codeWars kumite to simplify fractions
+
+function simplify(n, d){
+ if (d === 0){
+ return null;
+}
+ if (n === 0)
+ return [0, 1];
+ 
+ const fraction_sign = ((n < 0) ? -1 : 1) * ((d < 0) ? -1 : 1);
+
+ const fraction_gcd = gcd(Math.abs(n), Math.abs(d));
+
+ const result_n = fraction_sign * Math.abs(n) / fraction_gcd;
+
+ const result_d = Math.abs(d) / fraction_gcd;
+ return [result_n, result_d];
+}
+
+function gcd(x, y){
+ if (x === y){
+ return x;
+ if (x > y){
+ return gcd(y, x);
+ if (x === 0)
+ return y;
+ }
+ }
+ if (y === 0){
+ return x;
+ }
+ if (x % 2 === 0){
+ if (y % 2 === 1){
+ return gcd(x >> 1, y);
+ }
+ else {
+ switch(2 * (x % 2) + (y % 2)) {
+ case 0:    // both are divisible by 2
+ return gcd(x >> 1, y >> 1) << 1;
+ }
+ }
+ if (y % 2 === 0){
+ return gcd(x, y >> 1);
+ }
+ if (x > y){
+ return gcd((x - y) >> 1, y);
+ case 1: // only y is divisible by 2
+ return gcd(x >> 1, y);
+ case 2: // only x is divisible by 2
+  return gcd(x, y >> 1);
+  case 3: // neither are divisible by 2
+  return gcd((y - x) >> 1, x);
+ default: // default case should not run
+ return 0;
+ }
+
+}
